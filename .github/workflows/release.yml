@@ -38,7 +38,7 @@ jobs:
           token: ${{ secrets.CF_API_TOKEN }}
           project_id: 437915
           game_endpoint: minecraft
-          file_path: noweakattack-${{ steps.changelog_reader.outputs.version }}.jar
+          file_path: build/libs/noweakattack-${{ steps.changelog_reader.outputs.version }}.jar
           changelog_type: markdown
           changelog: ${{ steps.changelog_reader.outputs.changes }}
           display_name: ${{ steps.changelog_reader.outputs.version }} for Minecraft 1.16.3-1.16.4
