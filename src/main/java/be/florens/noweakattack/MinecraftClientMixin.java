@@ -21,7 +21,7 @@ public class MinecraftClientMixin {
 
 	@Inject(method = "doAttack", cancellable = true, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;attackEntity(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/entity/Entity;)V"))
 	private void cancelAttack(CallbackInfo info) {
-		if (this.hasFinishedCooldown()) {
+		if (!this.hasFinishedCooldown()) {
 			info.cancel();
 		}
 	}
