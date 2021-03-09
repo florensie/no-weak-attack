@@ -3,6 +3,7 @@ package be.florens.noweakattack;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
@@ -32,6 +33,7 @@ public class MinecraftClientMixin {
 	private void handleEntityAttacking(boolean bl, CallbackInfo info) {
 		if (bl && this.crosshairTarget != null && this.crosshairTarget.getType() == HitResult.Type.ENTITY && this.hasFinishedCooldown()) {
 			this.interactionManager.attackEntity(this.player, ((EntityHitResult)this.crosshairTarget).getEntity());
+			this.player.swingHand(Hand.MAIN_HAND);
 		}
 	}
 
