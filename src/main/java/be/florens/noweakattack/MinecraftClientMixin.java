@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
@@ -21,9 +22,9 @@ public class MinecraftClientMixin {
 	@Shadow public ClientPlayerInteractionManager interactionManager;
 
 	@Inject(method = "doAttack", cancellable = true, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;attackEntity(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/entity/Entity;)V"))
-	private void cancelAttack(CallbackInfo info) {
+	private void cancelAttack(CallbackInfoReturnable<Boolean> info) {
 		if (!this.hasFinishedCooldown()) {
-			info.cancel();
+			info.setReturnValue(false);
 		}
 	}
 
